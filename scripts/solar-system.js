@@ -61,15 +61,15 @@ scene.add( arrowHelper2 )
 scene.add( arrowHelper3 )
 
 
-
 const earthSize = 1
 const earthSpeedAngle = 1
 const earthSpeed = 1 // 8.4
-const earthDistance = 20 // 11760
+const earthDistance = 100 // 12500
+const sunSize = 109 // earthSize * 109 is real
 
 const planetsConfig = {
   sun: {
-    size: 20, // 109,
+    size: sunSize, // 109,
     speedAngle: 1,
     speed: 0,
     distance: 0,
@@ -80,7 +80,7 @@ const planetsConfig = {
     size: 0.382,
     speedAngle: 1,
     speed: 1.608,
-    distance: 0.31,
+    distance: sunSize + earthDistance * 0.31,
     angle: 0.1,
     texture: new THREE.TextureLoader().load( 'img/textures/mercury.jpg' )
   },
@@ -88,7 +88,7 @@ const planetsConfig = {
     size: 0.929,
     speedAngle: 1,
     speed: 1.176,
-    distance: 0.73,
+    distance: sunSize + earthDistance * 0.73,
     angle: 177,
     texture: new THREE.TextureLoader().load( 'img/textures/venus.jpg' )
   },
@@ -96,7 +96,7 @@ const planetsConfig = {
     size: earthSize,
     speedAngle: earthSpeedAngle,
     speed: earthSpeed,
-    distance: earthDistance,
+    distance: sunSize + earthDistance,
     angle: 23,
     texture: new THREE.TextureLoader().load( 'img/textures/earth.jpg' )
   },
@@ -104,7 +104,7 @@ const planetsConfig = {
     size: 0.532,
     speedAngle: 1,
     speed: 0.810,
-    distance: 1.405,
+    distance: sunSize + earthDistance * 1.405,
     angle: 25,
     texture: new THREE.TextureLoader().load( 'img/textures/mars.jpg' )
   },
@@ -112,7 +112,7 @@ const planetsConfig = {
     size: 11.209,
     speedAngle: 1,
     speed: 0.438,
-    distance: 5.037,
+    distance: sunSize + earthDistance * 5.037,
     angle: 3,
     texture: new THREE.TextureLoader().load( 'img/textures/jupiter.jpg' )
   },
@@ -120,7 +120,7 @@ const planetsConfig = {
     size: 9.449,
     speedAngle: 1,
     speed: 0.323,
-    distance: 9.164,
+    distance: sunSize + earthDistance * 9.164,
     angle: 27,
     texture: new THREE.TextureLoader().load( 'img/textures/saturn.jpg' )
   },
@@ -128,7 +128,7 @@ const planetsConfig = {
     size: 4.007,
     speedAngle: 1,
     speed: 0.229,
-    distance: 18.6,
+    distance: sunSize + earthDistance * 18.6,
     angle: 98,
     texture: new THREE.TextureLoader().load( 'img/textures/uranus.jpg' )
   },
@@ -137,14 +137,14 @@ const planetsConfig = {
     speedAngle: 1,
     speed: 0.182,
     distance: 30.31,
-    angle: 30,
+    angle: sunSize + earthDistance * 30,
     texture: new THREE.TextureLoader().load( 'img/textures/neptune.jpg' )
   },
   pluto: {
     size: 0.180,
     speedAngle: 1,
     speed: 0.159,
-    distance: 31.1,  //30.09,
+    distance: sunSize + earthDistance * 31.1,  //30.09,
     angle: 120,
     texture: new THREE.TextureLoader().load( 'img/textures/pluto.jpg' )
   },
@@ -198,12 +198,8 @@ Object.keys(planetsConfig).forEach(planetName => {
   planet.name = planetName
 
   if (planetName !== 'sun') {
-    let addDistance = planetName !== 'earth' ? earthDistance * planet.distance : earthDistance
     const addSpeed = planetName !== 'earth' ? earthSpeed * planet.speed : earthSpeed
 
-    addDistance += 109
-
-    planet.distance = addDistance
     planet.speed = addSpeed
   }
 
